@@ -71,7 +71,7 @@ function run(room) {
     var roomSpawns = Game.rooms[room].find(FIND_MY_SPAWNS);
 
     ////
-    // TODO: this filter is NOT finding available spawns correctly
+    // TODO: check this is reducing available spawns correctly
     ////
     var freeSpawns = _.filter(roomSpawns,{spawning: null});
     if (!freeSpawns.length) {return -4} // << Exit-point!
@@ -82,7 +82,7 @@ function run(room) {
     for (i = harvestersNeeded(room); i > 0; i--){
         myResult = spawner.spawnHarvester(freeSpawns[0]);
         if (myResult == 0){
-            unshift(freeSpawns[0]);
+            freespawns.shift();
             //delete freeSpawns[0];
         }
     }
