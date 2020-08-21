@@ -27,7 +27,7 @@ function retarget(creep) {
     }
     // If room has no Couriers, set next delivery target = consumers
     // If no next delivery target, set target = manager
-    let target = creep.room.findClosestByPath(FIND_STRUCTURES, {
+    let target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
         filter: (structure) => {
             return (structure.structureType == STRUCTURE_EXTENSION ||
                     structure.structureType == STRUCTURE_SPAWN ||
