@@ -61,30 +61,6 @@ function run(creep) {
             creep.say(constants.msgStatusIdle);
             break;
     }
-
-
-    // Won't this just go back to harvesting after 1 tick of work?!?
-    if(creep.store.getFreeCapacity() > 0) {
-        var resource = creep.pos.findClosestByPath(FIND_SOURCES);
-        if(creep.harvest(resource) == ERR_NOT_IN_RANGE) {
-            creep.moveTo(resource, {visualizePathStyle: {stroke: '#ffaa00'}});
-        }
-    }
-    else {
-        var targets = creep.room.find(FIND_STRUCTURES, {
-                filter: (structure) => {
-                    return (structure.structureType == STRUCTURE_EXTENSION ||
-                            structure.structureType == STRUCTURE_SPAWN ||
-                            structure.structureType == STRUCTURE_TOWER) && 
-                            structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
-                }
-        });
-        if(targets.length > 0) {
-            if(creep.transfer(targets[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffffff'}});
-            }
-        }
-    }
 }
 
 module.exports = {run};
