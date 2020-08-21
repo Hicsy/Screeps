@@ -1,0 +1,249 @@
+[
+    {
+        "id": "105004733064613",
+        "room": {
+            "name": "W4N3",
+            "energyAvailable": 500,
+            "energyCapacityAvailable": 550,
+            "visual": {
+                "roomName": "W4N3"
+            }
+        },
+        "pos": {
+            "x": 47,
+            "y": 2,
+            "roomName": "W4N3"
+        },
+        "energy": 50,
+        "energyCapacity": 50,
+        "store": {
+            "energy": 50
+        },
+        "owner": {
+            "username": "Hicsy"
+        },
+        "my": true,
+        "hits": 1000,
+        "hitsMax": 1000,
+        "structureType": "extension"
+    },
+    {
+        "id": "94363fd3d6ab6b0",
+        "room": {
+            "name": "W4N3",
+            "energyAvailable": 500,
+            "energyCapacityAvailable": 550,
+            "visual": {
+                "roomName": "W4N3"
+            }
+        },
+        "pos": {
+            "x": 30,
+            "y": 12,
+            "roomName": "W4N3"
+        },
+        "ticksToDecay": 53,
+        "isPublic": false,
+        "owner": {
+            "username": "Hicsy"
+        },
+        "my": true,
+        "hits": 250800,
+        "hitsMax": 300000,
+        "structureType": "rampart"
+    },
+    {
+        "id": "43a43fd97cfaa2a",
+        "room": {
+            "name": "W4N3",
+            "energyAvailable": 500,
+            "energyCapacityAvailable": 550,
+            "visual": {
+                "roomName": "W4N3"
+            }
+        },
+        "pos": {
+            "x": 20,
+            "y": 14,
+            "roomName": "W4N3"
+        },
+        "ticksToDecay": 76,
+        "isPublic": false,
+        "owner": {
+            "username": "Hicsy"
+        },
+        "my": true,
+        "hits": 136801,
+        "hitsMax": 300000,
+        "structureType": "rampart"
+    },
+    {
+        "id": "11753afee05c00d",
+        "room": {
+            "name": "W4N3",
+            "energyAvailable": 500,
+            "energyCapacityAvailable": 550,
+            "visual": {
+                "roomName": "W4N3"
+            }
+        },
+        "pos": {
+            "x": 40,
+            "y": 6,
+            "roomName": "W4N3"
+        },
+        "energy": 50,
+        "energyCapacity": 50,
+        "store": {
+            "energy": 50
+        },
+        "owner": {
+            "username": "Hicsy"
+        },
+        "my": true,
+        "hits": 1000,
+        "hitsMax": 1000,
+        "structureType": "extension"
+    },
+    {
+        "id": "e1fd3ac941bd8e8",
+        "room": {
+            "name": "W4N3",
+            "energyAvailable": 500,
+            "energyCapacityAvailable": 550,
+            "visual": {
+                "roomName": "W4N3"
+            }
+        },
+        "pos": {
+            "x": 41,
+            "y": 5,
+            "roomName": "W4N3"
+        },
+        "energy": 50,
+        "energyCapacity": 50,
+        "store": {
+            "energy": 50
+        },
+        "owner": {
+            "username": "Hicsy"
+        },
+        "my": true,
+        "hits": 1000,
+        "hitsMax": 1000,
+        "structureType": "extension"
+    },
+    {
+        "id": "2e393a5f5450e62",
+        "room": {
+            "name": "W4N3",
+            "energyAvailable": 500,
+            "energyCapacityAvailable": 550,
+            "visual": {
+                "roomName": "W4N3"
+            }
+        },
+        "pos": {
+            "x": 41,
+            "y": 6,
+            "roomName": "W4N3"
+        },
+        "energy": 50,
+        "energyCapacity": 50,
+        "store": {
+            "energy": 50
+        },
+        "owner": {
+            "username": "Hicsy"
+        },
+        "my": true,
+        "hits": 1000,
+        "hitsMax": 1000,
+        "structureType": "extension"
+    },
+    {
+        "id": "9b890773ce4ed89",
+        "room": {
+            "name": "W4N3",
+            "energyAvailable": 500,
+            "energyCapacityAvailable": 550,
+            "visual": {
+                "roomName": "W4N3"
+            }
+        },
+        "pos": {
+            "x": 6,
+            "y": 34,
+            "roomName": "W4N3"
+        },
+        "ticksToDowngrade": 9988,
+        "level": 2,
+        "progress": 29465,
+        "progressTotal": 45000,
+        "safeModeAvailable": 1,
+        "isPowerEnabled": false,
+        "owner": {
+            "username": "Hicsy"
+        },
+        "my": true,
+        "structureType": "controller"
+    },
+    {
+        "id": "e3b5465bf8986d2",
+        "room": {
+            "name": "W4N3",
+            "energyAvailable": 500,
+            "energyCapacityAvailable": 550,
+            "visual": {
+                "roomName": "W4N3"
+            }
+        },
+        "pos": {
+            "x": 44,
+            "y": 2,
+            "roomName": "W4N3"
+        },
+        "name": "Home",
+        "energy": 250,
+        "energyCapacity": 300,
+        "spawning": null,
+        "store": {
+            "energy": 250
+        },
+        "owner": {
+            "username": "Hicsy"
+        },
+        "my": true,
+        "hits": 5000,
+        "hitsMax": 5000,
+        "structureType": "spawn"
+    },
+    {
+        "id": "4e6d3bd2e9d37d6",
+        "room": {
+            "name": "W4N3",
+            "energyAvailable": 500,
+            "energyCapacityAvailable": 550,
+            "visual": {
+                "roomName": "W4N3"
+            }
+        },
+        "pos": {
+            "x": 40,
+            "y": 5,
+            "roomName": "W4N3"
+        },
+        "energy": 50,
+        "energyCapacity": 50,
+        "store": {
+            "energy": 50
+        },
+        "owner": {
+            "username": "Hicsy"
+        },
+        "my": true,
+        "hits": 1000,
+        "hitsMax": 1000,
+        "structureType": "extension"
+    }
+]
