@@ -8,6 +8,7 @@ var mgrBuild = require('mgr.build');
 
 
 module.exports.loop = function () {
+    console.log('MAIN - 111')
     // Garbage Collection - ALWAYS RUN THIS BEFORE ANYTHING ELSE **sigh**
     for(var i in Memory.creeps) {
         if(!Game.creeps[i]) {
