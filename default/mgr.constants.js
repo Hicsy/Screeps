@@ -60,7 +60,7 @@ module.exports = Object.freeze({
     },
     //////     Messages     //////
     msgStatusBuild: '🚧 Build',
-    msgStatusBuild: '🚛 Deliver',
+    msgStatusDeliver: '🚛 Deliver',
     msgStatusHarvest: '🪓 Harvest',
     msgStatusIdle: '💤 Idle',
     msgStatusRecycle: '🔄 Recycle',

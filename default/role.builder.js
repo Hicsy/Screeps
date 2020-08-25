@@ -12,10 +12,10 @@ function idleWork(creep) {
 	// TODO: if target already set, do that instead of calculating?
 	var target = null
 	if (!creep.memory.targetId){
-		console.log(creep.id + "_" + creep + " - RoleBuilder::idleWork::RetargetConstruction.")
+		console.log(`${creep.id}_${creep} - RoleBuilder::idleWork::RetargetConstruction.`)
 		target = funcRetarget.targetNearbyConstruction(creep);
 		if (!target) {
-			console.log(creep.id + "_" + creep + " - RoleBuilder::idleWork::RetargetRepair.")
+			console.log(`${creep.id}_${creep} - RoleBuilder::idleWork::RetargetRepair.`)
 			funcRetarget.targetNearbyRepair(creep);
 		}
 	}
@@ -112,10 +112,10 @@ function run(creep) {
 	// TODO: if target already set, do that instead of calculating?
 	var target = null
 	if (!creep.memory.targetId){
-		console.log(creep.id + "_" + creep + " - RoleBuilder::idleWork::RetargetConstruction.")
+		console.log(`${creep.id}_${creep} - RoleBuilder::idleWork::RetargetConstruction.`)
 		target = funcRetarget.targetNearbyConstruction(creep);
 		if (!target) {
-			console.log(creep.id + "_" + creep + " - RoleBuilder::idleWork::RetargetRepair.")
+			console.log(`${creep.id}_${creep} - RoleBuilder::idleWork::RetargetRepair.`)
 			funcRetarget.targetNearbyRepair(creep);
 		}
 	}

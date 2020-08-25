@@ -34,6 +34,8 @@ function build(creep) {
                 creep.moveTo(target, {visualizePathStyle: constants.stylePathBuild});
             }
             // TODO: catch other error codes of Build attempt.
+        } else {
+            target = funcRetarget.targetNearbyRepair(creep);
         }
     }
 }
