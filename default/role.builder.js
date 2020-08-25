@@ -30,6 +30,9 @@ function idleWork(creep) {
 			case 'build':
 				funcBuild.build(creep);
 				break;
+			case 'spawning':
+				goIdle(creep);
+				break;
 			case undefined:
 				funcBuild.goBuild(creep);
 				break;
@@ -101,14 +104,49 @@ function build(creep, targetId) {
 }
 
 
-//////    export: run    //////
-var roleBuilder = {
-
-    /** @param {Creep} creep **/
-    run: function(creep) {
-		//console.log(creep.id + "_" + creep + " - RoleBuilder func.")
-		idleWork(creep);
+/** @param {Creep} creep **/
+function run(creep) {
+	console.log(`${creep.id} - RoleBuilder.run(${creep})`)
+	// TODO: This is being rebuilt. I just finished splitting build() + repair() into stand-alone modules+functions.
+	//console.log(creep.id + "_" + creep + " - RoleBuilder::idleWork.")
+	// TODO: if target already set, do that instead of calculating?
+	var target = null
+	if (!creep.memory.targetId){
+		console.log(creep.id + "_" + creep + " - RoleBuilder::idleWork::RetargetConstruction.")
+		target = funcRetarget.targetNearbyConstruction(creep);
+		if (!target) {
+			console.log(creep.id + "_" + creep + " - RoleBuilder::idleWork::RetargetRepair.")
+			funcRetarget.targetNearbyRepair(creep);
+		}
 	}
-};
+	if (creep.memory.targetId){
+		switch (creep.memory.job) {
+			case 'harvest':
+				funcHarvest.harvest(creep);
+				break;
+			case 'repair':
+				funcRepair.repair(creep);
+				break;
+			case 'build':
+				funcBuild.build(creep);
+				break;
+			case 'spawning':
+				goIdle(creep);
+				break;
+			case undefined:
+				funcBuild.goBuild(creep);
+				break;
+			default:
+				creep.say(constants.msgStatusIdle);
+				// do upgrades or stocking up?
+				break;
+		}
+	} else {
+		creep.say(constants.msgStatusIdle);
+		// upgrade core?
+		// move somewhere to wait?
+		// become something else?
+	}
+}
 
-module.exports = roleBuilder;
+module.exports = {run}
