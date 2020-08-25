@@ -111,7 +111,7 @@ function run(room) {
     for (i = harvestersNeeded(room); i > 0; i--){
         myResult = spawner.spawnWorker(freeSpawns[0], 'harvester', 'worker');
         if (myResult == 0){
-            freespawns.shift();
+            freeSpawns.shift();
             if (!freeSpawns.length) {return -4} //               << Exit-point!
             //delete freeSpawns[0];
         }
@@ -122,7 +122,7 @@ function run(room) {
     for (i = buildersNeeded(room); i > 0; i--){
         myResult = spawner.spawnWorker(freeSpawns[0], 'builder', 'worker');
         if (myResult == 0){
-            freespawns.shift();
+            freeSpawns.shift();
             if (!freeSpawns.length) {return -4} //               << Exit-point!
             //delete freeSpawns[0];
         }
@@ -133,33 +133,39 @@ function run(room) {
     for (i = couriersNeeded(room); i > 0; i--){
         myResult = spawner.spawnWorker(freeSpawns[0], 'courier', 'courier');
         if (myResult == 0){
-            freespawns.shift();
+            freeSpawns.shift();
             if (!freeSpawns.length) {return -4} //               << Exit-point!
             //delete freeSpawns[0];
         }
     }
 
+    console.log(`${room} - mgrSpawn.run(4) - freeSpawns: ${freeSpawns}`);
     // If under attack: make DEFENDER.
 
+    console.log(`${room} - mgrSpawn.run(5) - freeSpawns: ${freeSpawns}`);
     // Try to upgrade existing units
 
+    console.log(`${room} - mgrSpawn.run(6) - freeSpawns: ${freeSpawns}`);
     // If threatened: defend/support.
 
-    console.log(`${room} - mgrSpawn.run(4) - freeSpawns: ${freeSpawns}`);
+    console.log(`${room} - mgrSpawn.run(7) - freeSpawns: ${freeSpawns}`);
     // Each energy source gets 1 UPGRADER.
     for (i = upgradersNeeded(room); i > 0; i--){
         myResult = spawner.spawnWorker(freeSpawns[0], 'upgrader', 'worker');
         if (myResult == 0){
-            freespawns.shift();
+            freeSpawns.shift();
             if (!freeSpawns.length) {return -4} //               << Exit-point!
             //delete freeSpawns[0];
         }
     }
 
+    console.log(`${room} - mgrSpawn.run(8) - freeSpawns: ${freeSpawns}`);
     // Each unassigned StructureContainer gets a TRUCK.
 
+    console.log(`${room} - mgrSpawn.run(9) - freeSpawns: ${freeSpawns}`);
     // Each advanced resource gets a HARVESTER?
 
+    console.log(`${room} - mgrSpawn.run(10) - freeSpawns: ${freeSpawns}`);
     // Expansion, Growth, Defense, Offense
 
 }
