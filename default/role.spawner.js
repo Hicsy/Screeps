@@ -28,7 +28,7 @@ function checkHarvester(spawn) {
 }
 
 function spawnHarvester(spawn) {
-    console.log(spawn + " - roleSpawner.spawnHarvester()")
+    console.log(`${spawn} - roleSpawner.spawnHarvester()`)
 
     let role = 'harvester';
     let body = funcSpawn.newBody(spawn.room.energyAvailable, 'worker');
@@ -39,7 +39,24 @@ function spawnHarvester(spawn) {
     return myResult;
 }
 
+/**
+ * 
+ * @param {Structure} spawn The spawn object to attempt to build from.
+ * @param {String} role The new creep's job role.
+ * @param {String} bodyType The new creeps bodyType constant.
+ */
+function spawnWorker(spawn, role, bodyType) {
+    console.log(`${spawn} - roleSpawner.spawnWorker(${spawn}, ${role}, ${bodyType})`)
+    let body = funcSpawn.newBody(spawn.room.energyAvailable, bodyType);
+    myResult = funcSpawn.newSpawn(spawn.name, body, role);
+    if (myResult == 0) {
+        // success msg or whatevs
+    }
+    return myResult;
+}
+
 
 module.exports = {
-    spawnHarvester
+    spawnHarvester,
+    spawnWorker
 }

@@ -73,3 +73,4 @@ function myTest(x,y) {
     console.timeEnd('taker');
 }
 
+console.log(`${spawn} - roleSpawner.spawnWorker(${spawn}, ${role}, ${body}) - Beginning build...`)

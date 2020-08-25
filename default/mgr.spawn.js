@@ -2,16 +2,51 @@ var constants = require('mgr.constants');
 var spawner = require('role.spawner');
 const { filter } = require('lodash');
 
+// Each energy source gets 1 HARVESTER
 function harvestersNeeded(room) {
-    console.log(room + " - mgrSpawn.harvestersNeeded() - checking harvesters...");
+    console.log(`${room} - mgrSpawn.harvestersNeeded() - checking 'harvester' count...`);
     var roomSources = Game.rooms[room].find(FIND_SOURCES);
-    var roomHarvesters = Game.rooms[room].find(FIND_MY_CREEPS,{
+    var roomWorkers = Game.rooms[room].find(FIND_MY_CREEPS,{
         filter: (creep)=>{return creep.memory.role == 'harvester'}
     });
-    if (roomHarvesters.length < roomSources.length){
-        return roomSources.length - roomHarvesters.length
-    }
+    return roomSources.length - roomWorkers.length
 }
+
+// Each energy source adds 1 BUILDER
+function buildersNeeded(room) {
+    console.log(`${room} - mgrSpawn.buildersNeeded() - checking 'builder' count...`);
+    var roomSources = Game.rooms[room].find(FIND_SOURCES);
+    var roomWorkers = Game.rooms[room].find(FIND_MY_CREEPS,{
+        filter: (creep)=>{return creep.memory.role == 'builder'}
+    });
+    return roomSources.length - roomWorkers.length
+}
+
+// Each spawn or tower adds 1 COURIER.
+function couriersNeeded(room) {
+    console.log(`${room} - mgrSpawn.couriersNeeded() - checking 'courier' count...`);
+    var roomConsumers = []
+    roomConsumers.concat( Game.rooms[room].find(FIND_STRUCTURES, {
+        filter: (obj)=>{return (obj.structureType == STRUCTURE_SPAWN ||
+                                obj.structureType == STRUCTURE_TOWER)} 
+        }) // TODO: count containers also? << maybe truck-specific instead.
+    );
+    var roomWorkers = Game.rooms[room].find(FIND_MY_CREEPS,{
+        filter: (creep)=>{return creep.memory.role == 'courier'}
+    });
+    return roomConsumers.length - roomWorkers.length
+}
+
+// Each energy source adds 1 UPGRADER.
+function upgradersNeeded(room) {
+    console.log(`${room} - mgrSpawn.upgradersNeeded() - checking 'upgrader' count...`);
+    var roomSources = Game.rooms[room].find(FIND_SOURCES);
+    var roomWorkers = Game.rooms[room].find(FIND_MY_CREEPS,{
+        filter: (creep)=>{return creep.memory.role == 'upgrader'}
+    });
+    return roomSources.length - roomWorkers.length
+}
+
 
 function updateSourceMemory(sourceID) {
     if (!Memory.sources){Memory.sources = {}}
@@ -20,10 +55,11 @@ function updateSourceMemory(sourceID) {
     }
 }
 
+
 /**
  * Spawn Rules I could be bothered to come up with right now:
  * 
- * Each energy source gets one HARVESTER.
+ * Each energy source gets 1 HARVESTER.
  *  - Harvester sized at upto (X ticks) faster than full drain:
  *      - Source size = 3000 (or 1500 Unreserved / 4000 Center).
  *      - Sources refill after 300 ticks (so average 10/tick).
@@ -35,10 +71,10 @@ function updateSourceMemory(sourceID) {
  *      - Cost: 800 (RCL3 Max), Spawn Time: 30 ticks (3 ticks / part).
  *  - Delivers to closest spawn (If no COURIER) otherwise StructureContainer.
  * 
- * Each energy source gets 1 BUILDER.
+ * Each energy source adds 1 BUILDER.
  *  - Body is similar to HARVESTER.
  * 
- * Each spawn or tower get one COURIER.
+ * Each spawn or tower adds 1 COURIER.
  *  - Each 100% MOVE speed (burdened) COURIER has pairs of [CARRY, MOVE].
  *  - Cost: {'RC1': 300, 'RC2': 500, 'RC3': 800, 'RC4': 1300}.
  * 
@@ -46,7 +82,7 @@ function updateSourceMemory(sourceID) {
  * 
  * If threatened: defend/support.
  * 
- * Each energy source gets 1 UPGRADER.
+ * Each energy source adds 1 UPGRADER.
  *  - Body is [CARRY, MOVE] then all WORK (upto RCL max like the COURIERS).
  * 
  * Each unassigned StructureContainer gets a TRUCK.
@@ -62,34 +98,46 @@ function updateSourceMemory(sourceID) {
  *  - Offense
  */
 function run(room) {
-    console.log(room + " - mgrSpawn.run()");
     // Exit early if energy storage is too empty.
+    console.log(`${room} - mgrSpawn.run()`);
     if (Game.rooms[room].energyAvailable < 200) {return -6} //   << Exit-point!
     
-    console.log(room + " - mgrSpawn.run(1)");
     // Exit early if no available spawner.
-    var roomSpawns = Game.rooms[room].find(FIND_MY_SPAWNS);
-
-    ////
-    // TODO: check this is reducing available spawns correctly
-    ////
-    var freeSpawns = _.filter(roomSpawns,{spawning: null});
-    if (!freeSpawns.length) {return -4} // << Exit-point!
-    console.log(room + " - mgrSpawn.run() - freeSpawns: " + freeSpawns);
-
-
+    var freeSpawns = Game.rooms[room].find(FIND_MY_SPAWNS, {filter: {spawning: null} });
+    if (!freeSpawns.length) {return -4} //                       << Exit-point!
+    
+    console.log(`${room} - mgrSpawn.run(1) - freeSpawns: ${freeSpawns}`);
     // Each energy source gets one HARVESTER
     for (i = harvestersNeeded(room); i > 0; i--){
-        myResult = spawner.spawnHarvester(freeSpawns[0]);
+        myResult = spawner.spawnWorker(freeSpawns[0], 'harvester', 'worker');
         if (myResult == 0){
             freespawns.shift();
+            if (!freeSpawns.length) {return -4} //               << Exit-point!
             //delete freeSpawns[0];
         }
     }
 
-    // Each spawn or tower get one COURIER.
-
+    console.log(`${room} - mgrSpawn.run(2) - freeSpawns: ${freeSpawns}`);
     // Each energy source gets 1 BUILDER
+    for (i = buildersNeeded(room); i > 0; i--){
+        myResult = spawner.spawnWorker(freeSpawns[0], 'builder', 'worker');
+        if (myResult == 0){
+            freespawns.shift();
+            if (!freeSpawns.length) {return -4} //               << Exit-point!
+            //delete freeSpawns[0];
+        }
+    }
+
+    console.log(`${room} - mgrSpawn.run(3) - freeSpawns: ${freeSpawns}`);
+    // Each spawn or tower get one COURIER.
+    for (i = couriersNeeded(room); i > 0; i--){
+        myResult = spawner.spawnWorker(freeSpawns[0], 'courier', 'courier');
+        if (myResult == 0){
+            freespawns.shift();
+            if (!freeSpawns.length) {return -4} //               << Exit-point!
+            //delete freeSpawns[0];
+        }
+    }
 
     // If under attack: make DEFENDER.
 
@@ -97,7 +145,16 @@ function run(room) {
 
     // If threatened: defend/support.
 
+    console.log(`${room} - mgrSpawn.run(4) - freeSpawns: ${freeSpawns}`);
     // Each energy source gets 1 UPGRADER.
+    for (i = upgradersNeeded(room); i > 0; i--){
+        myResult = spawner.spawnWorker(freeSpawns[0], 'upgrader', 'worker');
+        if (myResult == 0){
+            freespawns.shift();
+            if (!freeSpawns.length) {return -4} //               << Exit-point!
+            //delete freeSpawns[0];
+        }
+    }
 
     // Each unassigned StructureContainer gets a TRUCK.
 
