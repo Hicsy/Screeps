@@ -25,10 +25,12 @@ function targetNearbyConstruction(creep, forceClosest = false) {
                 //target = creep.room.find(
                 target = creep.pos.findClosestByPath(
                     FIND_MY_CONSTRUCTION_SITES,
-                    {filter: (obj) => obj.progressTotal <= 5000
+                    {filter: (obj) => {return (
+                        obj.progressTotal <= 5000
                         && !([STRUCTURE_WALL,
                             STRUCTURE_RAMPART,
                             STRUCTURE_ROAD].includes(obj.structureType))
+                        )}
                     }
                 );
                 break;

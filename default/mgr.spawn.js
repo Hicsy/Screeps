@@ -26,14 +26,18 @@ function buildersNeeded(room) {
 function couriersNeeded(room) {
     console.log(`${room} - mgrSpawn.couriersNeeded() - checking 'courier' count...`);
     var roomConsumers = []
-    roomConsumers.concat( Game.rooms[room].find(FIND_STRUCTURES, {
-        filter: (obj)=>{return (obj.structureType == STRUCTURE_SPAWN ||
-                                obj.structureType == STRUCTURE_TOWER)} 
+    // ^^VV Concat hates single search results :'(
+    let found = Game.rooms[room].find(FIND_STRUCTURES, {
+        filter: (obj)=>{return [STRUCTURE_SPAWN,
+                        STRUCTURE_TOWER].includes(obj.structureType)}
         }) // TODO: count containers also? << maybe truck-specific instead.
-    );
+    console.log(`${room} - mgrSpawn.couriersNeeded() - Consumer: ${found.length}`);
+    roomConsumers.push(...[].concat(found));
     var roomWorkers = Game.rooms[room].find(FIND_MY_CREEPS,{
         filter: (creep)=>{return creep.memory.role == 'courier'}
     });
+    let [i,j] = [roomWorkers.length, roomConsumers.length];
+    console.log(`${room} - mgrSpawn.couriersNeeded() - Couriers: ${i}/${j}`);
     return roomConsumers.length - roomWorkers.length
 }
 
