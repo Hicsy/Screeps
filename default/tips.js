@@ -38,14 +38,14 @@ CONTROLLER_STRUCTURES = {
     "factory": {1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 1, 8: 1}
 }
 
-function goIdle(creep) {
-	creep.memory.job = undefined;
-	creep.memory.status = 'idle';
-    creep.memory.targetId = undefined;
-    creep.memory.targetType = undefined;
-    creep.memory.targetPos = undefined;
-	creep.say(constants.msgStatusIdle);
-	idleWork(creep);
+function goIdle(creepName) {
+	Memory.creeps[creepName].job = undefined;
+	Memory.creeps[creepName].status = 'idle';
+    Memory.creeps[creepName].targetId = undefined;
+    Memory.creeps[creepName].targetType = undefined;
+    Memory.creeps[creepName].targetPos = undefined;
+	Game.creeps[creepName].say(constants.msgStatusIdle);
+	idleWork(Game.creeps[creepName]);
 }
 
 creep.memory = {
@@ -74,3 +74,13 @@ function myTest(x,y) {
 }
 
 console.log(`${spawn} - roleSpawner.spawnWorker(${spawn}, ${role}, ${body}) - Beginning build...`)
+f=(txt="")=>{console.log(txt)};
+f();
+
+
+Memory.creeps[creepName]
+Memory.spawns[spawnName]
+
+Game.creeps[creepName]
+Game.rooms[roomName]
+Game.spawns[spawnName]

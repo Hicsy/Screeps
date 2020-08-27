@@ -1,18 +1,18 @@
 var constants = require('mgr.constants');
-var roleHarvester = require('role.harvester');
-var roleUpgrader = require('role.upgrader');
-var roleBuilder = require('role.builder');
-var roleTower = require('role.tower');
-var mgrSpawn = require('mgr.spawn');
 var mgrBuild = require('mgr.build');
+var mgrSpawn = require('mgr.spawn');
+var roleBuilder = require('role.builder');
+var roleHarvester = require('role.harvester');
+var roleTower = require('role.tower');
+var roleUpgrader = require('role.upgrader');
 
 
 module.exports.loop = function () {
     // Garbage Collection - ALWAYS RUN THIS BEFORE ANYTHING ELSE **sigh**
-    for(var i in Memory.creeps) {
+    for(let i in Memory.creeps) {
         if(!Game.creeps[i]) {
             delete Memory.creeps[i];
-            console.log('Clearing non-existing creep memory:', i);
+            console.log(`Clearing non-existing creep memory: ${i}`);
         }
     }
 
@@ -24,29 +24,30 @@ module.exports.loop = function () {
     }
     
 
-    for (mySpawn in Game.spawns){
-        if(Game.spawns[mySpawn].spawning) { 
-            var spawningCreep = Game.creeps[Game.spawns[mySpawn].spawning.name];
-            Game.spawns[mySpawn].room.visual.text(
+    // room visuals
+    for (let spawnName in Game.spawns){
+        if(Game.spawns[spawnName].spawning) { 
+            let spawningCreep = Game.creeps[Game.spawns[spawnName].spawning.name];
+            Game.spawns[spawnName].room.visual.text(
                 '🛠️' + spawningCreep.memory.role,
-                Game.spawns[mySpawn].pos.x + 1, 
-                Game.spawns[mySpawn].pos.y, 
+                Game.spawns[spawnName].pos.x + 1, 
+                Game.spawns[spawnName].pos.y, 
                 {align: 'left', opacity: 0.8});
         }
     }
 
     
     // run Creeps
-    for(var creepName in Game.creeps) {
+    for(let creepName in Game.creeps) {
         switch (Game.creeps[creepName].memory.role){
             case 'harvester':
-                roleHarvester.run(Game.creeps[creepName]);
+                roleHarvester.run(creepName);
                 break;
             case 'upgrader':
-                roleUpgrader.run(Game.creeps[creepName]);
+                roleUpgrader.run(creepName);
                 break;
             case 'builder':
-                roleBuilder.run(Game.creeps[creepName]);
+                roleBuilder.run(creepName);
                 break;
         }
     }

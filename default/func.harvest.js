@@ -1,64 +1,90 @@
 var constants = require('mgr.constants');
 
-function harvest(creep) {
+
+/**
+ * Verify target and then harvest it. Move-to if too far away.
+ * @todo Refactor getObjectById() to directly access Game hashtable instead.
+ * @param {string} creepName The index name of this creep ie Game.creeps[creepName] .
+ */
+function harvest(creepName) {
 	// consider seeking closer enegery storage structures.
 	var target = null
-	if (creep.store.getFreeCapacity()){
-		creep.memory.job = 'harvest';
-		creep.memory.status = 'harvest'; // set outside perhaps?
-		if (creep.memory.targetId){
-			target = Game.getObjectById(creep.memory.targetId);
+	if (Game.creeps[creepName].store.getFreeCapacity()){
+		Memory.creeps[creepName].job = 'harvest';
+		Memory.creeps[creepName].status = 'harvest'; // set outside perhaps?
+		if (Memory.creeps[creepName].targetId){
+			target = Game.getObjectById(Memory.creeps[creepName].targetId);
 		}
 		if (!target || (target.structureType !== Source)) {
-			target = creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE);
+			target = Game.creeps[creepName].pos.findClosestByPath(FIND_SOURCES_ACTIVE);
 			if(target && target.id) {
-				creep.memory.targetId = target.id;
-				creep.memory.targetType = 'source';
-        		creep.memory.targetPos = target.pos;
+				Memory.creeps[creepName].targetId = target.id;
+				Memory.creeps[creepName].targetType = 'source';
+        		Memory.creeps[creepName].targetPos = target.pos;
 			}
 		}
 		if(target) {
-			if(creep.harvest(target) == ERR_NOT_IN_RANGE) {
-				creep.moveTo(target, {visualizePathStyle: constants.stylePathHarvest});
+			if(Game.creeps[creepName].harvest(target) == ERR_NOT_IN_RANGE) {
+				Game.creeps[creepName].moveTo(
+					target,
+					{visualizePathStyle: constants.stylePathHarvest}
+				);
 			}
 		}
 	} else {
-		goIdle(creep);
+		goIdle(creepName);
 	}
 }
 
-function deliver(creep) {
-	creep.memory.job = 'deliver';
-	creep.memory.status = 'deliver';
-	if (creep.memory.targetId){
-		target = Game.getObjectById(creep.memory.targetId);
+
+/**
+ * Transfer energy to target in memory.
+ * @todo Refactor getObjectById() to directly access Game hashtable instead.
+ * @todo Handle target full or not capable errors.
+ * @param {string} creepName The index name of this creep ie Game.creeps[creepName] .
+ */
+function deliver(creepName) {
+	Memory.creeps[creepName].job = 'deliver';
+	Memory.creeps[creepName].status = 'deliver';
+	if (Memory.creeps[creepName].targetId){
+		target = Game.getObjectById(Memory.creeps[creepName].targetId);
 		if(target) {
-			if(creep.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-				creep.moveTo(target, {visualizePathStyle: constants.stylePathDeliver});
+			if(Game.creeps[creepName].transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+				Game.creeps[creepName].moveTo(target, {visualizePathStyle: constants.stylePathDeliver});
 			}
 		}
 	} else {
-		goIdle(creep);
+		goIdle(creepName);
 	}
 }
 
-function goHarvest(creep) {
-	creep.memory.job = undefined;
-	creep.memory.status = 'harvest';
-	creep.memory.targetId = undefined;
-	creep.memory.targetType = undefined;
-    creep.memory.targetPos = undefined;
-	creep.say(constants.msgStatusHarvest);
-	harvest(creep);
+
+/**
+ * Reset creep's memory and kickoff a fresh harvesting process.
+ * @param {string} creepName The index name of the creep ie Game.creeps[creepName] .
+ */
+function goHarvest(creepName) {
+	Memory.creeps[creepName].status = 'harvest';
+	Memory.creeps[creepName].job = undefined;
+	Memory.creeps[creepName].targetId = undefined;
+	Memory.creeps[creepName].targetType = undefined;
+    Memory.creeps[creepName].targetPos = undefined;
+	Game.creeps[creepName].say(constants.msgStatusHarvest);
+	harvest(creepName);
 }
 
-function goIdle(creep) {
-	creep.memory.job = undefined;
-	creep.memory.status = 'idle';
-	creep.memory.targetId = undefined;
-	creep.memory.targetType = undefined;
-    creep.memory.targetPos = undefined;
-	creep.say(constants.msgStatusIdle);
+
+/**
+ * Reset creep's memory and go into idle state.
+ * @param {string} creepName The index name of the creep ie Game.creeps[creepName] .
+ */
+function goIdle(creepName) {
+	Memory.creeps[creepName].job = undefined;
+	Memory.creeps[creepName].status = 'idle';
+	Memory.creeps[creepName].targetId = undefined;
+	Memory.creeps[creepName].targetType = undefined;
+    Memory.creeps[creepName].targetPos = undefined;
+	Game.creeps[creepName].say(constants.msgStatusIdle);
 }
 
 

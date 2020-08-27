@@ -8,57 +8,66 @@ var funcHarvest = require('func.harvest');
  */
 
 
-/** @param {Creep} creep **/
-function retarget(creep) {
+/**
+ * Find a job to do.
+ * @todo Find+Assign a manager.
+ * @param {string} creepName The index name of the creep ie Game.creeps[creepName] .
+ */
+function retarget(creepName) {
     // If harvester has no manager, assign one (storage/energy-source)
-    if (undefined == creep.memory.manager) {
+    if (undefined == Memory.creeps[creepName].manager) {
         // TODO: Find+Assign a manager.
     }
 
     // Handle full creeps
-    if (creep.memory.job == 'harvest') {
+    if (Memory.creeps[creepName].job == 'harvest') {
         return;                                        // << Early break-point!
     }
 
     // if inventory empty, then goHarvest()
-    if(0 == creep.store.getUsedCapacity(RESOURCE_ENERGY)) {
-        funcHarvest.goHarvest(creep);
+    if(0 == Game.creeps[creepName].store.getUsedCapacity(RESOURCE_ENERGY)) {
+        funcHarvest.goHarvest(creepName);
         return;                                        // << Early break-point!
     }
     // If room has no Couriers, set next delivery target = consumers
     // If no next delivery target, set target = manager
-    let target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-        filter: (structure) => {
+    let target = Game.creeps[creepName].pos.findClosestByPath(
+        FIND_STRUCTURES,
+        {filter: (structure) => {
             return (structure.structureType == STRUCTURE_EXTENSION ||
                     structure.structureType == STRUCTURE_SPAWN ||
                     structure.structureType == STRUCTURE_TOWER) && 
                     structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
-        }
-    });
+        }}
+    );
     if (target) {
-        creep.memory.job = 'deliver';
-        creep.memory.targetId = target.id;
-		creep.memory.targetType = 'consumer';
-        creep.memory.targetPos = target.pos;
+        Memory.creeps[creepName].job = 'deliver';
+        Memory.creeps[creepName].targetId = target.id;
+		Memory.creeps[creepName].targetType = 'consumer';
+        Memory.creeps[creepName].targetPos = target.pos;
     }
 }
 
 
-/** @param {Creep} creep **/
-function run(creep) {
-    retarget(creep);
-    switch (creep.memory.job) {
+/**
+ * Handle core functions of creeps with harvester role.
+ * @todo Handle recyle/upgrade flow.
+ * @param {string} creepName The index name of this creep ie Game.creeps[creepName] .
+ */
+function run(creepName) {
+    retarget(creepName);
+    switch (Memory.creeps[creepName].job) {
         case 'harvest':
-            funcHarvest.harvest(creep);
+            funcHarvest.harvest(creepName);
             break;
         case 'deliver':
-            funcHarvest.deliver(creep);
+            funcHarvest.deliver(creepName);
             break;
         case 'recycle':
             // Handle recycle/upgrade flow
             break;
         default:
-            creep.say(constants.msgStatusIdle);
+            Game.creeps[creepName].say(constants.msgStatusIdle);
             break;
     }
 }

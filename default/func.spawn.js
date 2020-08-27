@@ -1,9 +1,10 @@
 var constants = require('mgr.constants');
 
+
 /**
  * Get a new creep BODY reduced to fit the energy budget.
  * @param {number} energy The permitted MAX energy budget for this creep.
- * @param {string} [bodyType] A body as defined in constants[bodies].
+ * @param {string} [bodyType=worker] A body as defined in constants[bodies].
  * @returns {Array} A new creep body list.
  */
 function newBody(energy, bodyType = "worker") {
@@ -24,22 +25,30 @@ function newBody(energy, bodyType = "worker") {
     if (body.length){return body}
 }
 
-// spawn defined dood with some items in memory.
-function newSpawn(spawn, body, role, manager, name) {
+
+/**
+ * Spawn defined creep with some pre-defined memory.
+ * @param {string} spawnName The index NAME of the spawn to use. ie Game.spawns[spawnName] .
+ * @param {string[]} body An array describing new creep’s body. eg [WORK,CARRY,MOVE] .
+ * @param {string} role The new creep's role, stored as: Memory.creeps[creepName].role .
+ * @param {string} [manager] ID of the creep's boss stored as: Memory.creeps[creepName].manager .
+ * @param {string} [creepName] The index name for the new creep ie Game.creeps[creepName] .
+ */
+function newSpawn(spawnName, body, role, manager, creepName) {
     // check spawn busy?
-    if (!name){
-        var name = role + Game.time;
+    if (!creepName){
+        var creepName = role + Game.time;
     }
     if (!manager){
         var manager = undefined;
     }
 
 
-    console.log(spawn + " - funcSpawn.newSpawn("+ spawn + body + role + manager + name+")")
+    console.log(`${spawnName} - funcSpawn.newSpawn(${spawnName}, ${body}, ${role}, ${manager}, ${creepName})`)
     
-    myResult = Game.spawns[spawn].spawnCreep(
+    myResult = Game.spawns[spawnName].spawnCreep(
         body,
-        name, 
+        creepName, 
         {memory: {
             manager: manager,
             role: role, // builder, harvester, upgrader
@@ -50,7 +59,7 @@ function newSpawn(spawn, body, role, manager, name) {
         }}
     );
     if (myResult == 0) {
-        console.log(spawn + ' - Spawning: ' + name);
+        console.log(`${spawnName} - Spawning: ${creepName}`);
     }
     return myResult;
 }

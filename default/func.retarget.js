@@ -1,29 +1,32 @@
 var constants = require('mgr.constants');
 
+
 /**
- * Performs an expanding search until a nearby CONSTRUCTION target is found:
+ * Perform an expanding search until a nearby CONSTRUCTION target is found:
  *
  *  - (Any) Closest
  *  - (Mine) Size <= 5k, NOT: Road/Wall/Rampart.
  *  - (Mine) Size <= 5k.
  *  - (Mine) Any
+ * @param {string} creepName The index name of the creep ie Game.creeps[creepName] .
+ * @param {boolean} [forceClosest=false] Quickly return the closest target if true.
  */
-function targetNearbyConstruction(creep, forceClosest = false) {
-    console.log(`${creep}- : Searching for constructions...`);
+function targetNearbyConstruction(creepName, forceClosest = false) {
+    console.log(`${creepName} - Searching for constructions...`);
     var target = null
     // Waterfall through expanding criteria until a target is found:    
     for (retry = 0; target == null; retry++){
         switch (retry) {
             case 0:
                 if (forceClosest) {
-                    console.log(`${creep}- 0: Getting closest site...`);
-                    target = creep.pos.findClosestByPath(FIND_MY_CONSTRUCTION_SITES);
+                    console.log(`${creepName} - 0: Getting closest site...`);
+                    target = Game.creeps[creepName].pos.findClosestByPath(FIND_MY_CONSTRUCTION_SITES);
                 }
                 break;
             case 1:
-                console.log(`${creep}- 1: Finding my basic sites...`);
-                //target = creep.room.find(
-                target = creep.pos.findClosestByPath(
+                console.log(`${creepName} - 1: Finding my basic sites...`);
+                //target = Game.creeps[creepName].room.find(
+                target = Game.creeps[creepName].pos.findClosestByPath(
                     FIND_MY_CONSTRUCTION_SITES,
                     {filter: (obj) => {return (
                         obj.progressTotal <= 5000
@@ -35,33 +38,33 @@ function targetNearbyConstruction(creep, forceClosest = false) {
                 );
                 break;
             case 2:
-                console.log(`${creep}- 2: Finding any normal sites incl road/wall/rampart...`);
-                target = creep.pos.findClosestByPath(
+                console.log(`${creepName} - 2: Finding any normal sites incl road/wall/rampart...`);
+                target = Game.creeps[creepName].pos.findClosestByPath(
                     FIND_MY_CONSTRUCTION_SITES,
                     {filter: (obj) => obj.progressTotal <= 5000}
                 );
                 break;
             case 3:
-                console.log(`${creep}- 3: Getting any site...`);
-                target = creep.pos.findClosestByPath(FIND_MY_CONSTRUCTION_SITES);
+                console.log(`${creepName} - 3: Getting any site...`);
+                target = Game.creeps[creepName].pos.findClosestByPath(FIND_MY_CONSTRUCTION_SITES);
                 break;
             default:
-                console.log(creep + "- UNABLE to find construction site!");
+                console.log(`${creepName} - UNABLE to find construction site!`);
                 return null; //                                extra exit-point
         }
     }
     ///////////////////////////////////////////////////////////////
-    // TODO: Finalise design choice - set creep.memory.targetId ... or return object/list ??
+    // TODO: Finalise design choice - set Memory.creeps[creepName].targetId ... or return object/list ??
     if (target && target.id) {
-        console.log(`${creep}- Target construction site: ${target}`);
-        creep.memory.targetId = target.id;
-        creep.memory.targetType = target.structureType;
-        creep.memory.targetPos = target.pos;
-        creep.memory.job == 'build';
+        console.log(`${creepName} - Target construction site: ${target}`);
+        Memory.creeps[creepName].targetId = target.id;
+        Memory.creeps[creepName].targetType = target.structureType;
+        Memory.creeps[creepName].targetPos = target.pos;
+        Memory.creeps[creepName].job == 'build';
     } else {
-        console.log(`${creep}- Construction target ID unavailable or no Target.`);
+        console.log(`${creepName} - Construction target ID unavailable or no Target.`);
     }
-    return target // another exit-point exists in the switch statement!
+    return target // another exit-point exists within the switch statement!
 }
 
 
@@ -77,18 +80,20 @@ function targetNearbyConstruction(creep, forceClosest = false) {
  *  - (Any) Damaged, Hits <= 10Mil (nuke DMG)
  *  - (Any) Damaged
  * 
- *  TODO: Consider splitting walls/ramparts/?roads? into their own repair agents
+ * @todo Consider splitting walls/ramparts/?roads? into their own repair agents.
+ * @param {string} creepName The index name of this creep ie Game.creeps[creepName] .
+ * @param {boolean} [forceClosest=false] Quickly return the closest target if true.
  */
-function targetNearbyRepair(creep, forceClosest = false) {
-    console.log(`${creep.id}_${creep}- Searching for repairs...`);
+function targetNearbyRepair(creepName, forceClosest = false) {
+    console.log(`${creepName} - Searching for repairs...`);
     var target = null
     // Waterfall through expanding options until a target is found:
     for (retry = 0; target == null; retry++){
         switch (retry) {
             case 0:
                 if (forceClosest) {
-                    console.log(`${creep}- 0: Getting closest repair...`);
-                    target = creep.pos.findClosestByPath(
+                    console.log(`${creepName} - 0: Getting closest repair...`);
+                    target = Game.creeps[creepName].pos.findClosestByPath(
                         FIND_STRUCTURES,
                         {filter: (obj) => obj.hits < obj.hitsMax}
                         // TODO: does it need to filter owner != enemy?
@@ -96,9 +101,9 @@ function targetNearbyRepair(creep, forceClosest = false) {
                 }
                 break;
             case 1:
-                console.log(`${creep}- 1: Finding my basic repairs...`);
-                //target = creep.room.find(
-                target = creep.pos.findClosestByPath(
+                console.log(`${creepName} - 1: Finding my basic repairs...`);
+                //target = Game.creeps[creepName].room.find(
+                target = Game.creeps[creepName].pos.findClosestByPath(
                     FIND_MY_STRUCTURES,
                     {filter: (obj) => obj.hits < (obj.hitsMax - 200)
                         && obj.hits <= 5000
@@ -106,8 +111,8 @@ function targetNearbyRepair(creep, forceClosest = false) {
                 );
                 break;
             case 2:
-                console.log(`${creep}- 2: Finding my normal repairs...`);
-                target = creep.pos.findClosestByPath(
+                console.log(`${creepName} - 2: Finding my normal repairs...`);
+                target = Game.creeps[creepName].pos.findClosestByPath(
                     FIND_STRUCTURES,
                     {filter: (obj) => obj.hits < (obj.hitsMax - 200)
                         && obj.hits <= 30000
@@ -115,8 +120,8 @@ function targetNearbyRepair(creep, forceClosest = false) {
                 );
                 break;
             case 3:
-                console.log(`${creep}- 3: Finding any repair incl roads on hills...`);
-                target = creep.pos.findClosestByPath(
+                console.log(`${creepName} - 3: Finding any repair incl roads on hills...`);
+                target = Game.creeps[creepName].pos.findClosestByPath(
                     FIND_STRUCTURES,
                     {filter: (obj) => obj.hits < obj.hitsMax
                         && obj.hits <= 75000
@@ -124,8 +129,8 @@ function targetNearbyRepair(creep, forceClosest = false) {
                 );
                 break;
             case 4:
-                console.log(`${creep}- 4: Finding any repair below chosen Walls Max...`);
-                target = creep.pos.findClosestByPath(
+                console.log(`${creepName} - 4: Finding any repair below chosen Walls Max...`);
+                target = Game.creeps[creepName].pos.findClosestByPath(
                     FIND_STRUCTURES,
                     {filter: (obj) => obj.hits < obj.hitsMax
                         && obj.hits <= 250000
@@ -133,8 +138,8 @@ function targetNearbyRepair(creep, forceClosest = false) {
                 );
                 break;
             case 5:
-                console.log(`${creep}- 5: Finding any repair below a nuke...`);
-                target = creep.pos.findClosestByPath(
+                console.log(`${creepName} - 5: Finding any repair below a nuke...`);
+                target = Game.creeps[creepName].pos.findClosestByPath(
                     FIND_STRUCTURES,
                     {filter: (obj) => obj.hits < obj.hitsMax
                         && obj.hits <= 10000000
@@ -142,27 +147,27 @@ function targetNearbyRepair(creep, forceClosest = false) {
                 );
                 break;
             case 6:
-                console.log(`${creep}- 6: Getting any repairs...`);
-                target = creep.pos.findClosestByPath(
+                console.log(`${creepName} - 6: Getting any repairs...`);
+                target = Game.creeps[creepName].pos.findClosestByPath(
                     FIND_STRUCTURES,
                     {filter: (obj) => obj.hits < obj.hitsMax}
                 );
                 break;
             default:
-                console.log(`${creep}- 7: UNABLE to find any repair sites!`);
+                console.log(`${creepName} - 7: UNABLE to find any repair sites!`);
                 return null; // << extra exit-point.
         }
     }
     ///////////////////////////////////////////////////////////////
-    // TODO: Finalise design choice - set creep.memory.targetId ... or return object/list ??
+    // TODO: Finalise design choice - set Memory.creeps[creepName].targetId ... or return object/list ??
     if (target && target.id) {
-        console.log(`${creep}- Target repair site: ${target}`);
-        creep.memory.targetId = target.id;
-        creep.memory.targetType = target.structureType;
-        creep.memory.targetPos = target.pos;
-        creep.memory.job = 'repair'
+        console.log(`${creepName} - Target repair site: ${target}`);
+        Memory.creeps[creepName].targetId = target.id;
+        Memory.creeps[creepName].targetType = target.structureType;
+        Memory.creeps[creepName].targetPos = target.pos;
+        Memory.creeps[creepName].job = 'repair'
     } else {
-        console.log(`${creep}- Repair target ID unavailable or no repairs required :-S`);
+        console.log(`${creepName} - Repair target ID unavailable or no repairs required :-S`);
     }
     return target // another exit-point exists in the switch statement!
 }

@@ -6,143 +6,160 @@ var funcRetarget = require('func.retarget');
 //var funcBuild = require('func.build');
 
 
-function idleWork(creep) {
-	// TODO: This is being rebuilt. I just finished splitting build() + repair() into stand-alone modules+functions.
-	//console.log(creep.id + "_" + creep + " - RoleBuilder::idleWork.")
-	// TODO: if target already set, do that instead of calculating?
+/**
+ * Find work to do while memory doesnt already have a job.
+ * @todo This seems more like core run() functionality rather than an extra.
+ * @param {string} creepName The index name of this creep ie Game.creeps[creepName] .
+ */
+function idleWork(creepName) {
 	var target = null
-	if (!creep.memory.targetId){
-		console.log(`${creep.id}_${creep} - RoleBuilder::idleWork::RetargetConstruction.`)
-		target = funcRetarget.targetNearbyConstruction(creep);
+	if (!Memory.creeps[creepName].targetId){
+		console.log(`${creepName} - RoleBuilder::idleWork::RetargetConstruction.`)
+		target = funcRetarget.targetNearbyConstruction(creepName);
 		if (!target) {
-			console.log(`${creep.id}_${creep} - RoleBuilder::idleWork::RetargetRepair.`)
-			funcRetarget.targetNearbyRepair(creep);
+			console.log(`${creepName} - RoleBuilder::idleWork::RetargetRepair.`)
+			funcRetarget.targetNearbyRepair(creepName);
 		}
 	}
-	if (creep.memory.targetId){
-		switch (creep.memory.job) {
+	if (Memory.creeps[creepName].targetId){
+		switch (Memory.creeps[creepName].job) {
 			case 'harvest':
-				funcHarvest.harvest(creep);
+				funcHarvest.harvest(creepName);
 				break;
 			case 'repair':
-				funcRepair.repair(creep);
+				funcRepair.repair(creepName);
 				break;
 			case 'build':
-				funcBuild.build(creep);
+				funcBuild.build(creepName);
 				break;
 			case 'spawning':
-				goIdle(creep);
+				goIdle(creepName);
 				break;
 			case undefined:
-				funcBuild.goBuild(creep);
+				funcBuild.goBuild(creepName);
 				break;
 			default:
-				creep.say(constants.msgStatusIdle);
+				Game.creeps[creepName].say(constants.msgStatusIdle);
 				// do upgrades or stocking up?
 				break;
 		}
 	} else {
-		creep.say(constants.msgStatusIdle);
+		Game.creeps[creepName].say(constants.msgStatusIdle);
 		// upgrade core?
 		// move somewhere to wait?
 		// become something else?
 	}
 }
 
-function goIdle(creep) {
-	creep.memory.job = undefined;
-	creep.memory.status = 'idle';
-	creep.memory.targetId = undefined;
-	creep.memory.targetType = undefined;
-    creep.memory.targetPos = undefined;
-	creep.say(constants.msgStatusIdle);
-	idleWork(creep);
+
+/**
+ * Reset creep's memory and go into idle state.
+ * @param {string} creepName The index name of the creep ie Game.creeps[creepName] .
+ */
+function goIdle(creepName) {
+	Memory.creeps[creepName].job = undefined;
+	Memory.creeps[creepName].status = 'idle';
+	Memory.creeps[creepName].targetId = undefined;
+	Memory.creeps[creepName].targetType = undefined;
+    Memory.creeps[creepName].targetPos = undefined;
+	Game.creeps[creepName].say(constants.msgStatusIdle);
+	idleWork(creepName);
 }
 
 
-
-function build(creep, targetId) {
+/**
+ * Continue Building target item in memory (or repair if finished).
+ * @todo Is this needed anymore? Now moved to funcBuild.build() .
+ * @todo Refactor getObjectById() to directly access Game hashtable instead.
+ * @param {string} creepName The index name of the creep ie Game.creeps[creepName] .
+ */
+function build(creepName, targetId) {
 	target = Game.getObjectById(targetId);
 	if (target) {
-		if (creep.store[RESOURCE_ENERGY] == 0) {
+		if (Game.creeps[creepName].store[RESOURCE_ENERGY] == 0) {
 			// "fetch more energy instead."
 			funcHarvest.goHarvest(creep);
 		} else {
 			if (target instanceof ConstructionSite) {
 				// "do some building!"
-				if (creep.memory.job != 'build'){
-					creep.memory.job = 'build';
-					creep.say(constants.msgStatusBuild);
+				if (Memory.creeps[creepName].job != 'build'){
+					Memory.creeps[creepName].job = 'build';
+					Game.creeps[creepName].say(constants.msgStatusBuild);
 				}
-				if(creep.build(target) == ERR_NOT_IN_RANGE) {
-					creep.moveTo(target, {visualizePathStyle: constants.stylePathBuild});
+				if(Game.creeps[creepName].build(target) == ERR_NOT_IN_RANGE) {
+					Game.creeps[creepName].moveTo(target, {visualizePathStyle: constants.stylePathBuild});
 				}
 			} else if (target.structureType != null) {
 				// "repair job instead?"
 				if (target.hits < target.hitsMax){
-					if (creep.memory.job != 'repair'){
-						creep.memory.job = 'repair';
-						creep.say(constants.msgStatusRepair);
+					if (Memory.creeps[creepName].job != 'repair'){
+						Memory.creeps[creepName].job = 'repair';
+						Game.creeps[creepName].say(constants.msgStatusRepair);
 					}
-					if(creep.repair(target) == ERR_NOT_IN_RANGE) {
-						creep.moveTo(target, {visualizePathStyle: constants.stylePathRepair});
+					if(Game.creeps[creepName].repair(target) == ERR_NOT_IN_RANGE) {
+						Game.creeps[creepName].moveTo(
+							target,
+							{visualizePathStyle: constants.stylePathRepair}
+						);
 					}
 				} else {
 					// repaired.
-					goIdle(creep);
+					goIdle(creepName);
 				}
 			} else {
 				// "no idea!" Maybe the construction just finished.
 				console.log("Build order given targeting non-contruction site!")
-				goIdle(creep);
+				goIdle(creepName);
 			}
 		}
 	} else {
 		// no target was set.
-		goIdle(creep);
+		goIdle(creepName);
 	}
 }
 
 
-/** @param {Creep} creep **/
-function run(creep) {
-	console.log(`${creep.id} - RoleBuilder.run(${creep})`)
-	// TODO: This is being rebuilt. I just finished splitting build() + repair() into stand-alone modules+functions.
-	//console.log(creep.id + "_" + creep + " - RoleBuilder::idleWork.")
-	// TODO: if target already set, do that instead of calculating?
+/**
+ * Handle core functions of creeps with builder role.
+ * @todo Sort out between this and idleWork() .
+ * @todo Handle "BusyWork" should nothing be needed.
+ * @param {string} creepName The index name of the creep ie Game.creeps[creepName] .
+ */
+function run(creepName) {
+	console.log(`${creepName} - RoleBuilder.run(${creepName})`)
 	var target = null
-	if (!creep.memory.targetId){
-		console.log(`${creep.id}_${creep} - RoleBuilder::idleWork::RetargetConstruction.`)
-		target = funcRetarget.targetNearbyConstruction(creep);
+	if (!Memory.creeps[creepName].targetId){
+		console.log(`${creepName} - RoleBuilder::idleWork::RetargetConstruction.`)
+		target = funcRetarget.targetNearbyConstruction(creepName);
 		if (!target) {
-			console.log(`${creep.id}_${creep} - RoleBuilder::idleWork::RetargetRepair.`)
-			funcRetarget.targetNearbyRepair(creep);
+			console.log(`${creepName} - RoleBuilder::idleWork::RetargetRepair.`)
+			funcRetarget.targetNearbyRepair(creepName);
 		}
 	}
-	if (creep.memory.targetId){
-		switch (creep.memory.job) {
+	if (Memory.creeps[creepName].targetId){
+		switch (Memory.creeps[creepName].job) {
 			case 'harvest':
-				funcHarvest.harvest(creep);
+				funcHarvest.harvest(creepName);
 				break;
 			case 'repair':
-				funcRepair.repair(creep);
+				funcRepair.repair(creepName);
 				break;
 			case 'build':
-				funcBuild.build(creep);
+				funcBuild.build(creepName);
 				break;
 			case 'spawning':
-				goIdle(creep);
+				goIdle(creepName);
 				break;
 			case undefined:
-				funcBuild.goBuild(creep);
+				funcBuild.goBuild(creepName);
 				break;
 			default:
-				creep.say(constants.msgStatusIdle);
+				Game.creeps[creepName].say(constants.msgStatusIdle);
 				// do upgrades or stocking up?
 				break;
 		}
 	} else {
-		creep.say(constants.msgStatusIdle);
+		Game.creeps[creepName].say(constants.msgStatusIdle);
 		// upgrade core?
 		// move somewhere to wait?
 		// become something else?

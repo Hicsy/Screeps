@@ -3,58 +3,75 @@ var funcHarvest = require('func.harvest');
 var funcRetarget = require('func.retarget');
 
 
-function repair(creep) {
-    if (creep.store[RESOURCE_ENERGY] == 0) {
+/**
+ * Repair target structure in memory after validating it.
+ * @todo Refactor getObjectById() to directly access Game hashtable instead.
+ * @param {string} creepName The index name of the creep ie Game.creeps[creepName] .
+ */
+function repair(creepName) {
+    if (Game.creeps[creepName].store[RESOURCE_ENERGY] == 0) {
         // "fetch more energy instead."
-        funcHarvest.goHarvest(creep);
+        funcHarvest.goHarvest(creepName);
     } else {
         var target = null;
-        var targetId = creep.memory.targetId || null;
+        var targetId = Memory.creeps[creepName].targetId || null;
         if (targetId){
-            target = Game.getObjectById(creep.memory.targetId);
+            target = Game.getObjectById(Memory.creeps[creepName].targetId);
         }
         if (!target) {
-            target = funcRetarget.targetNearbyRepair(creep);
+            target = funcRetarget.targetNearbyRepair(creepName);
         }
         if (target) {
             if (target.hits < target.hitsMax){
-                if (creep.memory.job != 'repair'){
-                    creep.memory.job = 'repair';
-                    creep.say(constants.msgStatusRepair);
+                if (Memory.creeps[creepName].job != 'repair'){
+                    Memory.creeps[creepName].job = 'repair';
+                    Game.creeps[creepName].say(constants.msgStatusRepair);
                 }
-                if(creep.repair(target) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(target, {visualizePathStyle: constants.stylePathRepair});
+                if(Game.creeps[creepName].repair(target) == ERR_NOT_IN_RANGE) {
+                    Game.creeps[creepName].moveTo(
+                        target,
+                        {visualizePathStyle: constants.stylePathRepair}
+                    );
                 }
             } else {
                 // repaired?
-                goIdle(creep);
+                goIdle(creepName);
             }
         }
     }
 }
 
 
-function goRepair(creep,
+/**
+ * Reset creep's memory and kickoff a new Repair process.
+ * @param {string} creepName The index name of the creep ie Game.creeps[creepName] .
+ * @param {Object} [target] The actual target to dissect into memory.
+ */
+function goRepair(creepName,
                   target = {structureType: undefined,
                                        id: undefined,
                                       pos: undefined}) {
-    creep.memory.job        = undefined;
-	creep.memory.status     = 'repair';
-    creep.memory.targetId   = target.structureType;
-    creep.memory.targetType = target.id;
-    creep.memory.targetPos  = target.pos;
-	creep.say(constants.msgStatusRepair);
-	repair(creep);
+    Memory.creeps[creepName].job        = undefined;
+	Memory.creeps[creepName].status     = 'repair';
+    Memory.creeps[creepName].targetId   = target.structureType;
+    Memory.creeps[creepName].targetType = target.id;
+    Memory.creeps[creepName].targetPos  = target.pos;
+	Game.creeps[creepName].say(constants.msgStatusRepair);
+	repair(creepName);
 }
 
 
-function goIdle(creep) {
-	creep.memory.job = undefined;
-	creep.memory.status = 'idle';
-    creep.memory.targetId = undefined;
-    creep.memory.targetType = undefined;
-    creep.memory.targetPos = undefined;
-	creep.say(constants.msgStatusIdle);
+/**
+ * Reset creep's memory and go into idle state.
+ * @param {string} creepName The index name of the creep ie Game.creeps[creepName] .
+ */
+function goIdle(creepName) {
+	Memory.creeps[creepName].job = undefined;
+	Memory.creeps[creepName].status = 'idle';
+    Memory.creeps[creepName].targetId = undefined;
+    Memory.creeps[creepName].targetType = undefined;
+    Memory.creeps[creepName].targetPos = undefined;
+	Game.creeps[creepName].say(constants.msgStatusIdle);
 }
 
 
