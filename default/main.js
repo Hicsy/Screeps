@@ -1,5 +1,6 @@
 var constants = require('mgr.constants');
 var mgrBuild = require('mgr.build');
+var mgrGui = require('mgr.gui');
 var mgrSpawn = require('mgr.spawn');
 var roleBuilder = require('role.builder');
 var roleHarvester = require('role.harvester');
@@ -57,4 +58,7 @@ module.exports.loop = function () {
     if(tower) {
         roleTower.run(tower)
     }*/
+
+    // Finally, signify the end of the tick in the console: · ᗧ · 🍒 · ᗣ · ᗤ ·
+    mgrGui.consoleAnimation('  ');
 }
