@@ -1,249 +1,891 @@
-[
-    {
-        "id": "105004733064613",
-        "room": {
-            "name": "W4N3",
-            "energyAvailable": 500,
-            "energyCapacityAvailable": 550,
-            "visual": {
+{
+    "creeps": {
+        "harvester150373": {
+            "room": {
+                "name": "W4N3",
+                "energyAvailable": 550,
+                "energyCapacityAvailable": 550,
+                "visual": {
+                    "roomName": "W4N3"
+                }
+            },
+            "pos": {
+                "x": 39,
+                "y": 4,
                 "roomName": "W4N3"
-            }
+            },
+            "id": "8e4bf3cef395220",
+            "name": "harvester150373",
+            "body": [
+                {
+                    "type": "work",
+                    "hits": 100
+                },
+                {
+                    "type": "work",
+                    "hits": 100
+                },
+                {
+                    "type": "work",
+                    "hits": 100
+                },
+                {
+                    "type": "work",
+                    "hits": 100
+                },
+                {
+                    "type": "carry",
+                    "hits": 100
+                },
+                {
+                    "type": "move",
+                    "hits": 100
+                }
+            ],
+            "my": true,
+            "owner": {
+                "username": "Hicsy"
+            },
+            "spawning": false,
+            "ticksToLive": 705,
+            "carryCapacity": 50,
+            "carry": {
+                "energy": 47
+            },
+            "store": {
+                "energy": 47
+            },
+            "fatigue": 0,
+            "hits": 600,
+            "hitsMax": 600
         },
-        "pos": {
-            "x": 47,
-            "y": 2,
-            "roomName": "W4N3"
+        "harvester150599": {
+            "room": {
+                "name": "W4N3",
+                "energyAvailable": 550,
+                "energyCapacityAvailable": 550,
+                "visual": {
+                    "roomName": "W4N3"
+                }
+            },
+            "pos": {
+                "x": 45,
+                "y": 3,
+                "roomName": "W4N3"
+            },
+            "id": "177cf406879b7a6",
+            "name": "harvester150599",
+            "body": [
+                {
+                    "type": "work",
+                    "hits": 100
+                },
+                {
+                    "type": "work",
+                    "hits": 100
+                },
+                {
+                    "type": "work",
+                    "hits": 100
+                },
+                {
+                    "type": "work",
+                    "hits": 100
+                },
+                {
+                    "type": "carry",
+                    "hits": 100
+                },
+                {
+                    "type": "move",
+                    "hits": 100
+                }
+            ],
+            "my": true,
+            "owner": {
+                "username": "Hicsy"
+            },
+            "spawning": false,
+            "ticksToLive": 931,
+            "carryCapacity": 50,
+            "carry": {
+                "energy": 50
+            },
+            "store": {
+                "energy": 50
+            },
+            "fatigue": 0,
+            "hits": 600,
+            "hitsMax": 600,
+            "saying": "💤 Idle"
         },
-        "energy": 50,
-        "energyCapacity": 50,
-        "store": {
-            "energy": 50
+        "courier150637": {
+            "room": {
+                "name": "W4N3",
+                "energyAvailable": 550,
+                "energyCapacityAvailable": 550,
+                "visual": {
+                    "roomName": "W4N3"
+                }
+            },
+            "pos": {
+                "x": 44,
+                "y": 1,
+                "roomName": "W4N3"
+            },
+            "id": "eec3f40fe12d5c8",
+            "name": "courier150637",
+            "body": [
+                {
+                    "type": "carry",
+                    "hits": 100
+                },
+                {
+                    "type": "move",
+                    "hits": 100
+                },
+                {
+                    "type": "carry",
+                    "hits": 100
+                },
+                {
+                    "type": "move",
+                    "hits": 100
+                }
+            ],
+            "my": true,
+            "owner": {
+                "username": "Hicsy"
+            },
+            "spawning": false,
+            "ticksToLive": 963,
+            "carryCapacity": 100,
+            "carry": {},
+            "store": {},
+            "fatigue": 0,
+            "hits": 400,
+            "hitsMax": 400
         },
-        "owner": {
-            "username": "Hicsy"
+        "builder150933": {
+            "room": {
+                "name": "W4N3",
+                "energyAvailable": 550,
+                "energyCapacityAvailable": 550,
+                "visual": {
+                    "roomName": "W4N3"
+                }
+            },
+            "pos": {
+                "x": 22,
+                "y": 24,
+                "roomName": "W4N3"
+            },
+            "id": "22d2f458af6b03c",
+            "name": "builder150933",
+            "body": [
+                {
+                    "type": "work",
+                    "hits": 100
+                },
+                {
+                    "type": "work",
+                    "hits": 100
+                },
+                {
+                    "type": "work",
+                    "hits": 100
+                },
+                {
+                    "type": "work",
+                    "hits": 100
+                },
+                {
+                    "type": "carry",
+                    "hits": 100
+                },
+                {
+                    "type": "move",
+                    "hits": 100
+                }
+            ],
+            "my": true,
+            "owner": {
+                "username": "Hicsy"
+            },
+            "spawning": false,
+            "ticksToLive": 1265,
+            "carryCapacity": 50,
+            "carry": {},
+            "store": {},
+            "fatigue": 4,
+            "hits": 600,
+            "hitsMax": 600
         },
-        "my": true,
-        "hits": 1000,
-        "hitsMax": 1000,
-        "structureType": "extension"
+        "builder150953": {
+            "room": {
+                "name": "W4N3",
+                "energyAvailable": 550,
+                "energyCapacityAvailable": 550,
+                "visual": {
+                    "roomName": "W4N3"
+                }
+            },
+            "pos": {
+                "x": 28,
+                "y": 4,
+                "roomName": "W4N3"
+            },
+            "id": "f682f45d9bcd400",
+            "name": "builder150953",
+            "body": [
+                {
+                    "type": "work",
+                    "hits": 100
+                },
+                {
+                    "type": "work",
+                    "hits": 100
+                },
+                {
+                    "type": "carry",
+                    "hits": 100
+                },
+                {
+                    "type": "move",
+                    "hits": 100
+                }
+            ],
+            "my": true,
+            "owner": {
+                "username": "Hicsy"
+            },
+            "spawning": false,
+            "ticksToLive": 1280,
+            "carryCapacity": 50,
+            "carry": {
+                "energy": 20
+            },
+            "store": {
+                "energy": 20
+            },
+            "fatigue": 0,
+            "hits": 400,
+            "hitsMax": 400
+        },
+        "upgrader150980": {
+            "room": {
+                "name": "W4N3",
+                "energyAvailable": 550,
+                "energyCapacityAvailable": 550,
+                "visual": {
+                    "roomName": "W4N3"
+                }
+            },
+            "pos": {
+                "x": 26,
+                "y": 5,
+                "roomName": "W4N3"
+            },
+            "id": "3bfff464440f42d",
+            "name": "upgrader150980",
+            "body": [
+                {
+                    "type": "work",
+                    "hits": 100
+                },
+                {
+                    "type": "carry",
+                    "hits": 100
+                },
+                {
+                    "type": "move",
+                    "hits": 100
+                }
+            ],
+            "my": true,
+            "owner": {
+                "username": "Hicsy"
+            },
+            "spawning": false,
+            "ticksToLive": 1304,
+            "carryCapacity": 50,
+            "carry": {},
+            "store": {},
+            "fatigue": 0,
+            "hits": 300,
+            "hitsMax": 300,
+            "saying": "🪓 Harvest"
+        },
+        "upgrader150998": {
+            "room": {
+                "name": "W4N3",
+                "energyAvailable": 550,
+                "energyCapacityAvailable": 550,
+                "visual": {
+                    "roomName": "W4N3"
+                }
+            },
+            "pos": {
+                "x": 20,
+                "y": 22,
+                "roomName": "W4N3"
+            },
+            "id": "d79af468b0b284c",
+            "name": "upgrader150998",
+            "body": [
+                {
+                    "type": "work",
+                    "hits": 100
+                },
+                {
+                    "type": "carry",
+                    "hits": 100
+                },
+                {
+                    "type": "move",
+                    "hits": 100
+                }
+            ],
+            "my": true,
+            "owner": {
+                "username": "Hicsy"
+            },
+            "spawning": false,
+            "ticksToLive": 1321,
+            "carryCapacity": 50,
+            "carry": {},
+            "store": {},
+            "fatigue": 0,
+            "hits": 300,
+            "hitsMax": 300,
+            "saying": "🪓 Harvest"
+        }
     },
-    {
-        "id": "94363fd3d6ab6b0",
-        "room": {
-            "name": "W4N3",
-            "energyAvailable": 500,
-            "energyCapacityAvailable": 550,
-            "visual": {
+    "powerCreeps": {},
+    "spawns": {
+        "Home": {
+            "id": "e3b5465bf8986d2",
+            "room": {
+                "name": "W4N3",
+                "energyAvailable": 550,
+                "energyCapacityAvailable": 550,
+                "visual": {
+                    "roomName": "W4N3"
+                }
+            },
+            "pos": {
+                "x": 44,
+                "y": 2,
                 "roomName": "W4N3"
-            }
-        },
-        "pos": {
-            "x": 30,
-            "y": 12,
-            "roomName": "W4N3"
-        },
-        "ticksToDecay": 53,
-        "isPublic": false,
-        "owner": {
-            "username": "Hicsy"
-        },
-        "my": true,
-        "hits": 250800,
-        "hitsMax": 300000,
-        "structureType": "rampart"
+            },
+            "name": "Home",
+            "energy": 300,
+            "energyCapacity": 300,
+            "spawning": null,
+            "store": {
+                "energy": 300
+            },
+            "owner": {
+                "username": "Hicsy"
+            },
+            "my": true,
+            "hits": 5000,
+            "hitsMax": 5000,
+            "structureType": "spawn"
+        }
     },
-    {
-        "id": "43a43fd97cfaa2a",
-        "room": {
-            "name": "W4N3",
-            "energyAvailable": 500,
-            "energyCapacityAvailable": 550,
-            "visual": {
+    "structures": {
+        "867fe5956d1ef25": {
+            "id": "867fe5956d1ef25",
+            "room": {
+                "name": "W4N3",
+                "energyAvailable": 550,
+                "energyCapacityAvailable": 550,
+                "visual": {
+                    "roomName": "W4N3"
+                }
+            },
+            "pos": {
+                "x": 24,
+                "y": 7,
                 "roomName": "W4N3"
-            }
+            },
+            "ticksToDecay": 12,
+            "isPublic": false,
+            "owner": {
+                "username": "Hicsy"
+            },
+            "my": true,
+            "hits": 75301,
+            "hitsMax": 1000000,
+            "structureType": "rampart"
         },
-        "pos": {
-            "x": 20,
-            "y": 14,
-            "roomName": "W4N3"
+        "9b890773ce4ed89": {
+            "id": "9b890773ce4ed89",
+            "room": {
+                "name": "W4N3",
+                "energyAvailable": 550,
+                "energyCapacityAvailable": 550,
+                "visual": {
+                    "roomName": "W4N3"
+                }
+            },
+            "pos": {
+                "x": 6,
+                "y": 34,
+                "roomName": "W4N3"
+            },
+            "ticksToDowngrade": 19987,
+            "level": 3,
+            "progress": 21008,
+            "progressTotal": 135000,
+            "safeModeCooldown": 14932,
+            "safeModeAvailable": 1,
+            "isPowerEnabled": false,
+            "owner": {
+                "username": "Hicsy"
+            },
+            "my": true,
+            "structureType": "controller"
         },
-        "ticksToDecay": 76,
-        "isPublic": false,
-        "owner": {
-            "username": "Hicsy"
+        "105004733064613": {
+            "id": "105004733064613",
+            "room": {
+                "name": "W4N3",
+                "energyAvailable": 550,
+                "energyCapacityAvailable": 550,
+                "visual": {
+                    "roomName": "W4N3"
+                }
+            },
+            "pos": {
+                "x": 47,
+                "y": 2,
+                "roomName": "W4N3"
+            },
+            "energy": 50,
+            "energyCapacity": 50,
+            "store": {
+                "energy": 50
+            },
+            "owner": {
+                "username": "Hicsy"
+            },
+            "my": true,
+            "hits": 1000,
+            "hitsMax": 1000,
+            "structureType": "extension"
         },
-        "my": true,
-        "hits": 136801,
-        "hitsMax": 300000,
-        "structureType": "rampart"
+        "2e393a5f5450e62": {
+            "id": "2e393a5f5450e62",
+            "room": {
+                "name": "W4N3",
+                "energyAvailable": 550,
+                "energyCapacityAvailable": 550,
+                "visual": {
+                    "roomName": "W4N3"
+                }
+            },
+            "pos": {
+                "x": 41,
+                "y": 6,
+                "roomName": "W4N3"
+            },
+            "energy": 50,
+            "energyCapacity": 50,
+            "store": {
+                "energy": 50
+            },
+            "owner": {
+                "username": "Hicsy"
+            },
+            "my": true,
+            "hits": 1000,
+            "hitsMax": 1000,
+            "structureType": "extension"
+        },
+        "e1fd3ac941bd8e8": {
+            "id": "e1fd3ac941bd8e8",
+            "room": {
+                "name": "W4N3",
+                "energyAvailable": 550,
+                "energyCapacityAvailable": 550,
+                "visual": {
+                    "roomName": "W4N3"
+                }
+            },
+            "pos": {
+                "x": 41,
+                "y": 5,
+                "roomName": "W4N3"
+            },
+            "energy": 50,
+            "energyCapacity": 50,
+            "store": {
+                "energy": 50
+            },
+            "owner": {
+                "username": "Hicsy"
+            },
+            "my": true,
+            "hits": 1000,
+            "hitsMax": 1000,
+            "structureType": "extension"
+        },
+        "11753afee05c00d": {
+            "id": "11753afee05c00d",
+            "room": {
+                "name": "W4N3",
+                "energyAvailable": 550,
+                "energyCapacityAvailable": 550,
+                "visual": {
+                    "roomName": "W4N3"
+                }
+            },
+            "pos": {
+                "x": 40,
+                "y": 6,
+                "roomName": "W4N3"
+            },
+            "energy": 50,
+            "energyCapacity": 50,
+            "store": {
+                "energy": 50
+            },
+            "owner": {
+                "username": "Hicsy"
+            },
+            "my": true,
+            "hits": 1000,
+            "hitsMax": 1000,
+            "structureType": "extension"
+        },
+        "4e6d3bd2e9d37d6": {
+            "id": "4e6d3bd2e9d37d6",
+            "room": {
+                "name": "W4N3",
+                "energyAvailable": 550,
+                "energyCapacityAvailable": 550,
+                "visual": {
+                    "roomName": "W4N3"
+                }
+            },
+            "pos": {
+                "x": 40,
+                "y": 5,
+                "roomName": "W4N3"
+            },
+            "energy": 50,
+            "energyCapacity": 50,
+            "store": {
+                "energy": 50
+            },
+            "owner": {
+                "username": "Hicsy"
+            },
+            "my": true,
+            "hits": 1000,
+            "hitsMax": 1000,
+            "structureType": "extension"
+        },
+        "e3b5465bf8986d2": {
+            "id": "e3b5465bf8986d2",
+            "room": {
+                "name": "W4N3",
+                "energyAvailable": 550,
+                "energyCapacityAvailable": 550,
+                "visual": {
+                    "roomName": "W4N3"
+                }
+            },
+            "pos": {
+                "x": 44,
+                "y": 2,
+                "roomName": "W4N3"
+            },
+            "name": "Home",
+            "energy": 300,
+            "energyCapacity": 300,
+            "spawning": null,
+            "store": {
+                "energy": 300
+            },
+            "owner": {
+                "username": "Hicsy"
+            },
+            "my": true,
+            "hits": 5000,
+            "hitsMax": 5000,
+            "structureType": "spawn"
+        },
+        "24a950a04ac9bed": {
+            "id": "24a950a04ac9bed",
+            "room": {
+                "name": "W4N3",
+                "energyAvailable": 550,
+                "energyCapacityAvailable": 550,
+                "visual": {
+                    "roomName": "W4N3"
+                }
+            },
+            "pos": {
+                "x": 29,
+                "y": 12,
+                "roomName": "W4N3"
+            },
+            "ticksToDecay": 92,
+            "isPublic": false,
+            "owner": {
+                "username": "Hicsy"
+            },
+            "my": true,
+            "hits": 75601,
+            "hitsMax": 1000000,
+            "structureType": "rampart"
+        },
+        "3c8e50aa9b3fba3": {
+            "id": "3c8e50aa9b3fba3",
+            "room": {
+                "name": "W4N3",
+                "energyAvailable": 550,
+                "energyCapacityAvailable": 550,
+                "visual": {
+                    "roomName": "W4N3"
+                }
+            },
+            "pos": {
+                "x": 10,
+                "y": 23,
+                "roomName": "W4N3"
+            },
+            "ticksToDecay": 35,
+            "isPublic": false,
+            "owner": {
+                "username": "Hicsy"
+            },
+            "my": true,
+            "hits": 74801,
+            "hitsMax": 1000000,
+            "structureType": "rampart"
+        },
+        "df235a5e1e3ca32": {
+            "id": "df235a5e1e3ca32",
+            "room": {
+                "name": "W4N3",
+                "energyAvailable": 550,
+                "energyCapacityAvailable": 550,
+                "visual": {
+                    "roomName": "W4N3"
+                }
+            },
+            "pos": {
+                "x": 10,
+                "y": 24,
+                "roomName": "W4N3"
+            },
+            "ticksToDecay": 15,
+            "isPublic": false,
+            "owner": {
+                "username": "Hicsy"
+            },
+            "my": true,
+            "hits": 32601,
+            "hitsMax": 1000000,
+            "structureType": "rampart"
+        },
+        "94363fd3d6ab6b0": {
+            "id": "94363fd3d6ab6b0",
+            "room": {
+                "name": "W4N3",
+                "energyAvailable": 550,
+                "energyCapacityAvailable": 550,
+                "visual": {
+                    "roomName": "W4N3"
+                }
+            },
+            "pos": {
+                "x": 30,
+                "y": 12,
+                "roomName": "W4N3"
+            },
+            "ticksToDecay": 74,
+            "isPublic": false,
+            "owner": {
+                "username": "Hicsy"
+            },
+            "my": true,
+            "hits": 76000,
+            "hitsMax": 1000000,
+            "structureType": "rampart"
+        },
+        "43a43fd97cfaa2a": {
+            "id": "43a43fd97cfaa2a",
+            "room": {
+                "name": "W4N3",
+                "energyAvailable": 550,
+                "energyCapacityAvailable": 550,
+                "visual": {
+                    "roomName": "W4N3"
+                }
+            },
+            "pos": {
+                "x": 20,
+                "y": 14,
+                "roomName": "W4N3"
+            },
+            "ticksToDecay": 97,
+            "isPublic": false,
+            "owner": {
+                "username": "Hicsy"
+            },
+            "my": true,
+            "hits": 76101,
+            "hitsMax": 1000000,
+            "structureType": "rampart"
+        },
+        "3696e595ae8e2a4": {
+            "id": "3696e595ae8e2a4",
+            "room": {
+                "name": "W4N3",
+                "energyAvailable": 550,
+                "energyCapacityAvailable": 550,
+                "visual": {
+                    "roomName": "W4N3"
+                }
+            },
+            "pos": {
+                "x": 24,
+                "y": 6,
+                "roomName": "W4N3"
+            },
+            "ticksToDecay": 13,
+            "isPublic": false,
+            "owner": {
+                "username": "Hicsy"
+            },
+            "my": true,
+            "hits": 75701,
+            "hitsMax": 1000000,
+            "structureType": "rampart"
+        },
+        "4394e595335e649": {
+            "id": "4394e595335e649",
+            "room": {
+                "name": "W4N3",
+                "energyAvailable": 550,
+                "energyCapacityAvailable": 550,
+                "visual": {
+                    "roomName": "W4N3"
+                }
+            },
+            "pos": {
+                "x": 24,
+                "y": 5,
+                "roomName": "W4N3"
+            },
+            "ticksToDecay": 11,
+            "isPublic": false,
+            "owner": {
+                "username": "Hicsy"
+            },
+            "my": true,
+            "hits": 75701,
+            "hitsMax": 1000000,
+            "structureType": "rampart"
+        },
+        "ccb6979214abb8c": {
+            "id": "ccb6979214abb8c",
+            "room": {
+                "name": "W4N3",
+                "energyAvailable": 550,
+                "energyCapacityAvailable": 550,
+                "visual": {
+                    "roomName": "W4N3"
+                }
+            },
+            "pos": {
+                "x": 35,
+                "y": 31,
+                "roomName": "W4N3"
+            },
+            "ticksToDecay": 63,
+            "isPublic": false,
+            "owner": {
+                "username": "Hicsy"
+            },
+            "my": true,
+            "hits": 72501,
+            "hitsMax": 1000000,
+            "structureType": "rampart"
+        },
+        "612a979b6cde0d4": {
+            "id": "612a979b6cde0d4",
+            "room": {
+                "name": "W4N3",
+                "energyAvailable": 550,
+                "energyCapacityAvailable": 550,
+                "visual": {
+                    "roomName": "W4N3"
+                }
+            },
+            "pos": {
+                "x": 16,
+                "y": 33,
+                "roomName": "W4N3"
+            },
+            "ticksToDecay": 2,
+            "isPublic": false,
+            "owner": {
+                "username": "Hicsy"
+            },
+            "my": true,
+            "hits": 38201,
+            "hitsMax": 1000000,
+            "structureType": "rampart"
+        }
     },
-    {
-        "id": "11753afee05c00d",
-        "room": {
+    "flags": {},
+    "constructionSites": {},
+    "rooms": {
+        "W4N3": {
             "name": "W4N3",
-            "energyAvailable": 500,
+            "energyAvailable": 550,
             "energyCapacityAvailable": 550,
             "visual": {
                 "roomName": "W4N3"
             }
-        },
-        "pos": {
-            "x": 40,
-            "y": 6,
-            "roomName": "W4N3"
-        },
-        "energy": 50,
-        "energyCapacity": 50,
-        "store": {
-            "energy": 50
-        },
-        "owner": {
-            "username": "Hicsy"
-        },
-        "my": true,
-        "hits": 1000,
-        "hitsMax": 1000,
-        "structureType": "extension"
+        }
     },
-    {
-        "id": "e1fd3ac941bd8e8",
-        "room": {
-            "name": "W4N3",
-            "energyAvailable": 500,
-            "energyCapacityAvailable": 550,
-            "visual": {
-                "roomName": "W4N3"
-            }
-        },
-        "pos": {
-            "x": 41,
-            "y": 5,
-            "roomName": "W4N3"
-        },
-        "energy": 50,
-        "energyCapacity": 50,
-        "store": {
-            "energy": 50
-        },
-        "owner": {
-            "username": "Hicsy"
-        },
-        "my": true,
-        "hits": 1000,
-        "hitsMax": 1000,
-        "structureType": "extension"
+    "time": 151185,
+    "cpuLimit": 500,
+    "cpu": {
+        "tickLimit": 500,
+        "limit": 100,
+        "bucket": 10000
     },
-    {
-        "id": "2e393a5f5450e62",
-        "room": {
-            "name": "W4N3",
-            "energyAvailable": 500,
-            "energyCapacityAvailable": 550,
-            "visual": {
-                "roomName": "W4N3"
-            }
-        },
-        "pos": {
-            "x": 41,
-            "y": 6,
-            "roomName": "W4N3"
-        },
-        "energy": 50,
-        "energyCapacity": 50,
-        "store": {
-            "energy": 50
-        },
-        "owner": {
-            "username": "Hicsy"
-        },
-        "my": true,
-        "hits": 1000,
-        "hitsMax": 1000,
-        "structureType": "extension"
+    "map": {},
+    "gcl": {
+        "level": 1,
+        "progress": 70708,
+        "progressTotal": 1000000
     },
-    {
-        "id": "9b890773ce4ed89",
-        "room": {
-            "name": "W4N3",
-            "energyAvailable": 500,
-            "energyCapacityAvailable": 550,
-            "visual": {
-                "roomName": "W4N3"
-            }
-        },
-        "pos": {
-            "x": 6,
-            "y": 34,
-            "roomName": "W4N3"
-        },
-        "ticksToDowngrade": 9988,
-        "level": 2,
-        "progress": 29465,
-        "progressTotal": 45000,
-        "safeModeAvailable": 1,
-        "isPowerEnabled": false,
-        "owner": {
-            "username": "Hicsy"
-        },
-        "my": true,
-        "structureType": "controller"
+    "gpl": {
+        "level": 0,
+        "progress": 0,
+        "progressTotal": 1000
     },
-    {
-        "id": "e3b5465bf8986d2",
-        "room": {
-            "name": "W4N3",
-            "energyAvailable": 500,
-            "energyCapacityAvailable": 550,
-            "visual": {
-                "roomName": "W4N3"
-            }
-        },
-        "pos": {
-            "x": 44,
-            "y": 2,
-            "roomName": "W4N3"
-        },
-        "name": "Home",
-        "energy": 250,
-        "energyCapacity": 300,
-        "spawning": null,
-        "store": {
-            "energy": 250
-        },
-        "owner": {
-            "username": "Hicsy"
-        },
-        "my": true,
-        "hits": 5000,
-        "hitsMax": 5000,
-        "structureType": "spawn"
+    "market": {
+        "credits": 0,
+        "incomingTransactions": [],
+        "outgoingTransactions": [],
+        "orders": {}
     },
-    {
-        "id": "4e6d3bd2e9d37d6",
-        "room": {
-            "name": "W4N3",
-            "energyAvailable": 500,
-            "energyCapacityAvailable": 550,
-            "visual": {
-                "roomName": "W4N3"
-            }
-        },
-        "pos": {
-            "x": 40,
-            "y": 5,
-            "roomName": "W4N3"
-        },
-        "energy": 50,
-        "energyCapacity": 50,
-        "store": {
-            "energy": 50
-        },
-        "owner": {
-            "username": "Hicsy"
-        },
-        "my": true,
-        "hits": 1000,
-        "hitsMax": 1000,
-        "structureType": "extension"
+    "resources": {
+        "token": 0
+    },
+    "shard": {
+        "name": "Hixtop",
+        "type": "normal",
+        "ptr": false
     }
-]
+}
