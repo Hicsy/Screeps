@@ -8,7 +8,7 @@ var roleTower = require('role.tower');
 var roleUpgrader = require('role.upgrader');
 
 
-module.exports.loop = function () {
+function loop () {
     // Garbage Collection - ALWAYS RUN THIS BEFORE ANYTHING ELSE **sigh**
     for(let i in Memory.creeps) {
         if(!Game.creeps[i]) {
@@ -62,3 +62,5 @@ module.exports.loop = function () {
     // Finally, signify the end of the tick in the console: · ᗧ · 🍒 · ᗣ · ᗤ ·
     mgrGui.consoleAnimation('  ');
 }
+
+module.exports = {loop};
